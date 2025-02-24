@@ -9,59 +9,24 @@ public class MainApp {
 
     public static void main(String[] args) {
 
-        Modelo modelo1 = new Modelo(99,"Sedan");
-        Veiculo car1 = new Veiculo("99", modelo1);
+        
+        Servico sv1 = new Servico();
+        sv1.setDescricao("Lavação Completa");
+        sv1.setId(99);
+        sv1.setPontos(43);
+        sv1.setValor(149.99);
 
-        Modelo modelo2 = new Modelo(88,"Picape");
-        Veiculo car2 = new Veiculo("88", modelo2);
+        ItemOS itemOS1 = new ItemOS();
+        itemOS1.setServico(sv1);
+        itemOS1.setValorServico();
 
-        car2.getModelo().getMotor().setPotencia(99);
+        OrdemServico os1 = new OrdemServico();
+        os1.setNumero(22);
+        os1.add(itemOS1);
 
-        /// ///////////////////////// cpf e cnpj criados. Ainda sem nome
-        PessoaFisica pessoaFisica = new PessoaFisica();
-        PessoaJuridica pessoaJuridica = new PessoaJuridica();
-
-        criaCNPJ(pessoaJuridica);
-        criaCPF(pessoaFisica);
-        /// /////////////////////////↷
-        pessoaFisica.add(car1);
-        pessoaFisica.add(car2);
-        //pessoaJuridica.add(car2);
-        /// /////////////////////////
-        printCliente(pessoaFisica);
-        //printCliente(pessoaJuridica);
-        printCarro(pessoaFisica);
-        printCarro(pessoaJuridica);
-    }
+        System.out.println(os1.calcularServico());
+        System.out.println(os1.getNumero());
 
 
-    public static void printCliente(Cliente cliente){
-        System.out.println();
-        System.out.println("A classe do cliente é: "+ cliente.getClass().getSimpleName());
-        if (cliente instanceof PessoaFisica pessoaFisica){
-            //operação downcast por meio de uma variável temporária
-            System.out.println(pessoaFisica.getDados());
-        } else {
-            //operação downcast sem a necessidade de usar uma variável
-            System.out.println(((PessoaJuridica)cliente).getDados());
-        }
-    }
-
-    public static void criaCPF(PessoaFisica cpf){
-        cpf.setId((int)(Math.random()*20));
-        cpf.setCpf(String.valueOf((int)(Math.random()*20)));
-        cpf.setCelular(String.valueOf((int)(Math.random()*20)));
-        cpf.getPontuacao().adicionar((int)(Math.random()*30));
-    }
-
-    public static void criaCNPJ(PessoaJuridica cnpj){
-        cnpj.setId((int)(Math.random()*20));
-        cnpj.setCnpj(String.valueOf((int)(Math.random()*20)));
-        cnpj.setCelular(String.valueOf((int)(Math.random()*20)));
-        cnpj.getPontuacao().adicionar((int)(Math.random()*30));
-    }
-
-    public static void printCarro(Cliente cliente){
-        System.out.println(cliente.getVeiculoList());
     }
 }
